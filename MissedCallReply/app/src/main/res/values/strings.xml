@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Missed Call Reply</string>
+    <string name="service_label">Missed Call Reply (WhatsApp auto send)</string>
+    <string name="service_description">Missed call hone par ye service WhatsApp kholti hai aur aap ka message caller ko automatically bhej deti hai. Ye sirf WhatsApp ki screen par Send button dabati hai, aur kuch nahi parhti.</string>
+</resources>

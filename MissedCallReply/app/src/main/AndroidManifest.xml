@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Missed call detect karne ke liye -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- Android 9+ par caller ka number lene ke liye zaroori -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <!-- Saved contacts ko skip karne ke liye -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Optional SMS fallback ke liye -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <!-- Android 11+ par WhatsApp app dhoondhne ke liye -->
+    <queries>
+        <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@android:drawable/sym_action_call"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Har call ki state yahan aati hai (ringing, picked, ended) -->
+        <receiver
+            android:name=".CallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Ye service WhatsApp kholti hai aur Send button dabati hai -->
+        <service
+            android:name=".AutoSendService"
+            android:exported="false"
+            android:label="@string/service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config" />
+        </service>
+    </application>
+</manifest>
